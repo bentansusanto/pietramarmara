@@ -3,118 +3,132 @@ import Link from 'next/link'
 
 const categories = [
   {
-    title: 'Marmer & Produk Batu Alam',
-    description: 'Marmer premium dan batu alam berkualitas tinggi untuk interior dan eksterior',
+    title: 'Precision Slabs',
+    description: 'Perfectly cut granite and marble slabs for seamless architectural integration.',
     icon: Mountain,
-    href: '/produk',
+    href: '/produk?category=slabs',
     image:
       'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800',
-    color: 'from-stone-900/80 to-stone-800/80',
+    color: 'from-brand-dark/90 to-stone-900/80',
   },
   {
-    title: 'Tanaman Pangan',
-    description: 'Beras, gandum, jagung, dan tanaman pangan berkualitas untuk kebutuhan industri',
+    title: 'Custom Tiles',
+    description: 'Bespoke granite tiles crafted to your exact specifications and finish.',
     icon: Package,
-    href: '/produk',
+    href: '/produk?category=tiles',
     image:
       'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&q=80&w=800',
-    color: 'from-amber-900/80 to-amber-800/80',
+    color: 'from-stone-800/90 to-stone-700/80',
   },
   {
-    title: 'Tanaman Perkebunan',
-    description: 'Kopi, teh, kelapa sawit, dan tanaman perkebunan premium',
+    title: 'Architectural Stone',
+    description: 'Massive stone blocks and structural elements for monumental designs.',
     icon: TreePine,
-    href: '/produk',
+    href: '/produk?category=architectural',
     image:
       'https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&fit=crop&q=80&w=800',
-    color: 'from-green-900/80 to-green-800/80',
+    color: 'from-neutral-900/90 to-neutral-800/80',
   },
   {
-    title: 'Buah-buahan & Sayuran',
-    description: 'Buah dan sayuran segar, organik, dan bebas pestisida',
+    title: 'Countertops',
+    description: 'Durable, heat-resistant granite surfaces for ultimate kitchen luxury.',
     icon: Apple,
-    href: '/produk',
+    href: '/produk?category=countertops',
     image:
       'https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&q=80&w=800',
-    color: 'from-red-900/80 to-red-800/80',
+    color: 'from-stone-950/90 to-stone-800/80',
   },
   {
-    title: 'Hasil Peternakan',
-    description: 'Daging, susu, telur, dan produk peternakan berkualitas',
+    title: 'Exterior Paving',
+    description: 'Weather-resistant granite paving for stunning landscapes and pathways.',
     icon: Beef,
-    href: '/produk',
+    href: '/produk?category=paving',
     image:
       'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&q=80&w=800',
-    color: 'from-orange-900/80 to-orange-800/80',
+    color: 'from-zinc-900/90 to-zinc-800/80',
   },
   {
-    title: 'Hasil Alam Lainnya',
-    description: 'Madu, rempah-rempah, dan produk alam lainnya',
+    title: 'Artisan Carvings',
+    description: 'Detailed sculptural work and custom stone art pieces by master craftsmen.',
     icon: Leaf,
-    href: '/produk',
+    href: '/produk?category=carvings',
     image:
       'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&q=80&w=800',
-    color: 'from-emerald-900/80 to-emerald-800/80',
+    color: 'from-品牌-dark/90 to-brand-dark/80', // Keep brand dark
   },
 ]
 
 export default function ProductCategories() {
   return (
-    <section className="py-24 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-brand-gold font-bold uppercase tracking-widest text-xs md:text-sm">
-            Product Categories
-          </h2>
-          <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-brand-dark font-serif">
-            Our Premium Collections
-          </h3>
-          <div className="w-24 h-1 bg-brand-gold mx-auto rounded-full"></div>
-          <p className="text-base md:text-lg text-stone-600 max-w-2xl mx-auto pt-4">
-            From luxury marble to high-quality agricultural produce, we provide the best nature has
-            to offer.
-          </p>
+    <section className="py-24 bg-brand-dark relative overflow-hidden">
+      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-stone-500 via-transparent to-transparent"></div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 border-b border-stone-800 pb-8">
+          <div className="space-y-4 max-w-2xl">
+            <h2 className="text-brand-gold font-bold uppercase tracking-widest text-xs md:text-sm">
+              Our Capabilities
+            </h2>
+            <h3 className="text-3xl md:text-5xl font-bold text-white font-serif leading-tight">
+              Stone Solutions
+            </h3>
+            <p className="text-stone-400 font-light mt-4 text-lg">
+              Comprehensive natural stone offerings tailored for distinct architectural requirements
+              and visionary designs.
+            </p>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category, index) => {
             const IconComponent = category.icon
             return (
               <Link
                 key={index}
                 href={category.href}
-                className="group relative block h-[400px] rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+                className="group relative block h-[380px] overflow-hidden rounded-sm bg-stone-900 border border-stone-800 hover:border-brand-gold transition-colors duration-500"
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">
                   <img
                     src={category.image}
                     alt={category.title}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100 mix-blend-overlay"
                   />
-                  <div
-                    className={`absolute inset-0 bg-linear-to-t ${category.color} via-brand-dark/40 to-transparent opacity-90`}
-                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-brand-dark to-transparent opacity-60 group-hover:opacity-5 transition-opacity duration-500" />
                 </div>
 
                 {/* Content */}
-                <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
-                  <div className="mb-4 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
-                    <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 border border-white/30">
-                      <IconComponent className="w-8 h-8 text-white" />
-                    </div>
-                    <h4 className="text-2xl font-bold mb-3">{category.title}</h4>
-                    <p className="text-stone-200 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                <div className="absolute inset-0 p-8 flex flex-col justify-between text-white">
+                  <div className="w-12 h-12 rounded-full border border-stone-600 flex items-center justify-center group-hover:border-brand-gold transition-colors duration-500">
+                    <IconComponent className="w-5 h-5 text-brand-gold" />
+                  </div>
+
+                  <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <h4 className="text-2xl font-serif font-bold text-white mb-2 group-hover:text-brand-gold transition-colors">
+                      {category.title}
+                    </h4>
+                    <p className="text-stone-400 text-sm font-light leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 h-0 group-hover:h-auto">
                       {category.description}
                     </p>
                   </div>
+                </div>
 
-                  <div className="flex items-center space-x-2 text-brand-gold font-bold text-sm uppercase tracking-wider group-hover:text-white transition-colors">
-                    <span>View Products</span>
-                    <span className="transform group-hover:translate-x-2 transition-transform">
-                      →
-                    </span>
-                  </div>
+                {/* Minimal corner accent */}
+                <div className="absolute bottom-4 right-4 text-brand-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
                 </div>
               </Link>
             )

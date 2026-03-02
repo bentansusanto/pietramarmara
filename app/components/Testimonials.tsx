@@ -2,89 +2,89 @@ import { Quote, Star } from 'lucide-react'
 
 const testimonials = [
   {
-    name: 'Budi Santoso',
-    company: 'PT. Arsitektura Indonesia',
-    role: 'Principal Architect',
-    image:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100',
+    name: 'Eleanor Vance',
+    role: 'Lead Architect, Horizon Studios',
     content:
-      "PietraMarmara's marble quality is exceptional. The finish for our Jakarta project was perfect. Professional service and consultation.",
+      'PietraMarmara delivered exquisite Statuario marble for our flagship hotel project. The veining consistency and exceptional finish surpassed all expectations. A truly premium partner.',
     rating: 5,
+    image:
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200',
   },
   {
-    name: 'Sarah Jenkins',
-    company: 'Green Valley Resorts',
-    role: 'Procurement Manager',
-    image:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100',
+    name: 'Marcus Chen',
+    role: 'CEO, Chen Developments',
     content:
-      'Their agricultural products are fresh and consistently high quality. We source our resort kitchen supplies from PietraMarmara.',
+      'Their Nero Marquina granite is flawless. From the selection process to final delivery, the professionalism and attention to detail demonstrated by PietraMarmara are unmatched.',
     rating: 5,
+    image:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200',
   },
   {
-    name: 'Ahmad Rahman',
-    company: 'CV. Interior Design Pro',
+    name: 'Sophia Laurent',
     role: 'Interior Designer',
-    image:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100',
     content:
-      'Their marble selection is outstanding. Unique patterns and variations that help us create elegant interiors for our clients.',
+      'I rely exclusively on PietraMarmara for high-end residential projects. Their exclusive collection provides the foundation for spaces that exude timeless luxury and sophistication.',
     rating: 5,
+    image:
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200',
   },
 ]
 
 export default function Testimonials() {
   return (
-    <section className="py-24 bg-stone-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
+    <section className="py-24 bg-brand-dark relative overflow-hidden">
+      {/* Decorative dark granite texture overlay */}
+      <div
+        className="absolute inset-0 opacity-10 mix-blend-overlay"
+        style={{
+          backgroundImage:
+            'url("https://images.unsplash.com/photo-1595846519845-68e298c2edd8?auto=format&fit=crop&q=80&w=2000")',
+          backgroundSize: 'cover',
+        }}
+      ></div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
           <h2 className="text-brand-gold font-bold uppercase tracking-widest text-xs md:text-sm">
-            Testimonials
+            Client Perspectives
           </h2>
-          <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-brand-dark font-serif">
-            What Our Clients Say
+          <h3 className="text-3xl md:text-5xl font-bold text-white font-serif leading-tight">
+            Enduring Partnerships
           </h3>
-          <div className="w-24 h-1 bg-brand-gold mx-auto rounded-full"></div>
-          <p className="text-base md:text-lg text-stone-600 max-w-2xl mx-auto pt-4">
-            Client satisfaction is our priority. Here are some words from our partners across
-            various industries.
+          <p className="text-stone-400 text-lg mx-auto pt-4 font-light">
+            Hear from industry leaders who have chosen our stones to define their most prestigious
+            projects.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 relative group border border-stone-100"
+              className="bg-stone-900/80 backdrop-blur-md p-10 rounded-sm border border-stone-800 hover:border-brand-gold/50 transition-colors duration-500 relative group"
             >
-              <Quote className="w-10 h-10 text-brand-gold/20 absolute top-8 right-8 group-hover:text-brand-gold transition-colors" />
+              <Quote className="absolute top-8 right-8 w-12 h-12 text-stone-800 group-hover:text-brand-gold/20 transition-colors duration-500" />
 
-              <div className="flex items-center space-x-4 mb-6">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-stone-100"
-                />
-                <div>
-                  <h4 className="font-bold text-brand-dark">{testimonial.name}</h4>
-                  <p className="text-xs text-stone-500">{testimonial.role}</p>
-                </div>
-              </div>
-
-              <div className="flex mb-4">
+              <div className="flex space-x-1 mb-6">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-brand-gold fill-current" />
+                  <Star key={i} className="w-4 h-4 text-brand-gold fill-brand-gold" />
                 ))}
               </div>
 
-              <p className="text-stone-600 mb-6 leading-relaxed italic text-sm">
-                &quot;{testimonial.content}&quot;
+              <p className="text-stone-300 mb-10 leading-relaxed font-light relative z-10">
+                "{testimonial.content}"
               </p>
 
-              <div className="border-t border-stone-100 pt-4">
-                <p className="text-xs font-bold text-brand-gold uppercase tracking-wider">
-                  {testimonial.company}
-                </p>
+              <div className="flex items-center space-x-4 border-t border-stone-800 pt-6">
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  className="w-12 h-12 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                />
+                <div>
+                  <h4 className="font-bold text-white font-serif">{testimonial.name}</h4>
+                  <p className="text-stone-500 text-sm font-light">{testimonial.role}</p>
+                </div>
               </div>
             </div>
           ))}

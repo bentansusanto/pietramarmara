@@ -30,7 +30,7 @@ const products = [
     category: 'Marble',
     description: 'Exclusive marble with soft gold veins for luxury interiors.',
     image:
-      'https://images.unsplash.com/photo-1628592102751-ba83b03062b3?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1584403293325-756fc1786516?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     badge: 'Premium',
   },
   {

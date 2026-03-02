@@ -22,7 +22,7 @@ export default function TentangKamiPage() {
             <div className="relative">
               <div className="aspect-4/5 rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1628592102751-ba83b03062b3?auto=format&fit=crop&q=80&w=800"
+                  src="https://images.unsplash.com/photo-1584403293325-756fc1786516?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Marble Slab"
                   className="w-full h-full object-cover"
                 />

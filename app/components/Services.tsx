@@ -1,56 +1,65 @@
-import { Gem, Globe, Leaf, ShieldCheck } from 'lucide-react'
+import { Building2, Gem, ShieldCheck, Truck } from 'lucide-react'
 
 const advantages = [
   {
-    title: 'Premium Quality',
-    description: 'Only the finest marble and agricultural products sourced directly from nature.',
+    title: 'Uncompromising Quality',
+    description:
+      'Every slab is meticulously inspected to ensure flawless color, veining, and structural integrity.',
     icon: Gem,
   },
   {
-    title: 'Trusted Supplier',
-    description: 'Reliable partner for major construction projects and industrial needs.',
+    title: 'Global Sourcing',
+    description:
+      'We maintain direct relationships with master quarries across Italy, Brazil, and India.',
+    icon: Building2,
+  },
+  {
+    title: 'Secure Transport',
+    description:
+      'Specialized logistics ensuring your stone arrives in pristine condition, anywhere in the world.',
+    icon: Truck,
+  },
+  {
+    title: 'Expert Consultation',
+    description:
+      'Our architectural stone specialists guide you in selecting the perfect material for your vision.',
     icon: ShieldCheck,
-  },
-  {
-    title: 'Global Export',
-    description: 'Experienced in shipping high-quality materials to international markets.',
-    icon: Globe,
-  },
-  {
-    title: 'Sustainable Resources',
-    description: 'Committed to eco-friendly practices in mining and farming.',
-    icon: Leaf,
   },
 ]
 
 export default function Services() {
   return (
-    <section className="py-20 bg-brand-dark text-white">
+    <section className="py-24 bg-stone-100">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 space-y-4">
-          <span className="text-brand-gold font-bold uppercase tracking-widest text-xs md:text-sm">
-            Why Choose Us
-          </span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-serif">
-            Company Advantages
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <h2 className="text-brand-gold font-bold uppercase tracking-widest text-xs md:text-sm">
+            The PietraMarmara Advantage
           </h2>
-          <div className="w-24 h-1 bg-brand-gold mx-auto rounded-full"></div>
+          <h3 className="text-3xl md:text-5xl font-bold text-brand-dark font-serif leading-tight">
+            Excellence Set in Stone
+          </h3>
+          <p className="text-stone-500 text-lg mx-auto pt-4 font-light">
+            We are more than suppliers; we are curators of earth's finest masterpieces, dedicated to
+            elevating your architectural projects.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {advantages.map((item, index) => {
-            const IconComponent = item.icon
+          {advantages.map((advantage, index) => {
+            const IconComponent = advantage.icon
             return (
               <div
                 key={index}
-                className="bg-white/5 border border-white/10 rounded-xl p-6 md:p-8 hover:bg-white/10 transition-all duration-300 group text-center"
+                className="bg-white p-10 rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 group border-b-4 border-transparent hover:border-brand-gold"
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-brand-gold/10 text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors">
-                  <IconComponent className="w-6 h-6 md:w-8 md:h-8" />
+                <div className="w-16 h-16 bg-stone-50 rounded-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-stone-100">
+                  <IconComponent className="w-8 h-8 text-brand-dark group-hover:text-brand-gold transition-colors" />
                 </div>
-                <h3 className="text-lg md:text-xl font-bold mb-3">{item.title}</h3>
-                <p className="text-stone-400 leading-relaxed text-xs md:text-sm">
-                  {item.description}
+                <h4 className="text-xl font-bold font-serif text-brand-dark mb-4 group-hover:text-brand-gold transition-colors">
+                  {advantage.title}
+                </h4>
+                <p className="text-stone-500 font-light leading-relaxed text-sm">
+                  {advantage.description}
                 </p>
               </div>
             )

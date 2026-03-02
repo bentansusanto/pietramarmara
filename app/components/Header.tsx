@@ -22,7 +22,6 @@ export default function Header() {
                 className="object-contain"
               />
             </div>
-            <span className="text-xl font-bold text-brand-dark tracking-tight">PietraMarmara</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -52,7 +52,7 @@ export default function PageHero({ title, description, bgImage, breadcrumb }: Pa
               <div key={index} className="flex items-center space-x-2">
                 <ChevronRight className="w-4 h-4" />
                 {index === breadcrumb.length - 1 ? (
-                  <span className="text-amber-500">{item.label}</span>
+                  <span className="text-brand-gold">{item.label}</span>
                 ) : (
                   <Link href={item.href} className="hover:text-white transition-colors">
                     {item.label}
@@ -77,7 +77,7 @@ export default function PageHero({ title, description, bgImage, breadcrumb }: Pa
 
         {/* Decorative Line */}
         <div className="mt-8 flex justify-center">
-          <div className="h-1 w-24 bg-amber-500 rounded-full"></div>
+          <div className="h-1 w-24 bg-brand-gold rounded-full"></div>
         </div>
       </div>
     </section>

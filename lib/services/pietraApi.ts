@@ -77,7 +77,9 @@ export interface Product {
 export const pietraApi = createApi({
   reducerPath: 'pietraApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_STRAPI_URL || 'http://127.0.0.1:1337/api/',
+    baseUrl: process.env.NEXT_PUBLIC_STRAPI_URL 
+      ? `${process.env.NEXT_PUBLIC_STRAPI_URL.replace(/\/$/, '')}/api/`
+      : 'https://cms.pasifik.my.id/api/',
   }),
   endpoints: builder => ({
     getCategories: builder.query<StrapiResponse<ProductCategory[]>, void>({

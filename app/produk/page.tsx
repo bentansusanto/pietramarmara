@@ -16,7 +16,7 @@ import Header from '../components/Header'
 import PageHero from '../components/PageHero'
 import { useGetProductsQuery } from '@/lib/services/pietraApi'
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL?.replace('/api', '') || 'http://127.0.0.1:1337'
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL?.replace('/api', '') || 'https://cms.pasifik.my.id'
 
 function getImageUrl(url?: string) {
   if (!url) return 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200'

@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { Clock, Mail, MapPin, Phone } from 'lucide-react'
 import { useState } from 'react'
 import Footer from '../components/Footer'
@@ -185,12 +186,14 @@ export default function KontakPage() {
                     ></textarea>
                   </div>
                   <div className="md:col-span-2 pt-4">
-                    <button
+                    <Button
                       type="submit"
-                      className="w-full md:w-auto bg-brand-dark text-white px-6 py-3 md:px-10 md:py-4 rounded-xl font-bold hover:bg-brand-gold transition-all duration-300 shadow-lg hover:shadow-brand-gold/20 flex items-center justify-center space-x-2 text-sm md:text-base"
+                      variant="blue"
+                      size="lg"
+                      className="w-full md:w-auto rounded-xl font-bold shadow-lg hover:shadow-brand-gold/20 h-14"
                     >
                       <span>Request Quote Now</span>
-                    </button>
+                    </Button>
                   </div>
                 </form>
               </div>

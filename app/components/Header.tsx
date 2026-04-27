@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { Menu, Phone, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -54,13 +55,12 @@ export default function Header() {
 
           {/* Desktop Search & CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link
-              href="/kontak"
-              className="bg-brand-blue text-white px-6 py-2 rounded-lg hover:bg-brand-gold transition-all duration-300 flex items-center space-x-2 font-medium"
-            >
-              <Phone className="w-4 h-4" />
-              <span>Request Quote</span>
-            </Link>
+            <Button variant="blue" asChild>
+              <Link href="/kontak">
+                <Phone className="w-4 h-4" />
+                <span>Request Quote</span>
+              </Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -105,14 +105,17 @@ export default function Header() {
             >
               Contact
             </Link>
-            <Link
-              href="/kontak"
-              className="bg-brand-dark text-white px-6 py-3 rounded-lg hover:bg-brand-gold transition-all duration-300 flex items-center justify-center space-x-2 font-medium w-full mt-2"
+            <Button
+              variant="blue"
+              className="w-full mt-2"
+              asChild
               onClick={() => setIsMenuOpen(false)}
             >
-              <Phone className="w-4 h-4" />
-              <span>Request Quote</span>
-            </Link>
+              <Link href="/kontak">
+                <Phone className="w-4 h-4" />
+                <span>Request Quote</span>
+              </Link>
+            </Button>
           </div>
         )}
       </div>

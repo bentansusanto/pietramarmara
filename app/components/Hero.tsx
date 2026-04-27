@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
@@ -27,19 +28,25 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link
-                href="/produk"
-                className="bg-brand-dark text-white px-6 py-3 md:px-8 md:py-4 rounded-lg hover:bg-brand-gold transition-all duration-300 font-bold text-center shadow-lg hover:shadow-brand-gold/20 flex items-center justify-center space-x-2 group text-sm md:text-base"
+              <Button
+                variant="blue"
+                size="lg"
+                className="rounded-lg font-bold shadow-lg hover:shadow-brand-gold/20 group h-12"
+                asChild
               >
-                <span>View Products</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/kontak"
-                className="bg-white border-2 border-brand-dark text-brand-dark px-6 py-3 md:px-8 md:py-4 rounded-lg hover:bg-brand-dark hover:text-white transition-all duration-300 font-bold text-center flex items-center justify-center text-sm md:text-base"
+                <Link href="/produk">
+                  <span>View Products</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-lg font-bold border-2 border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white h-12"
+                asChild
               >
-                Request Quote
-              </Link>
+                <Link href="/kontak">Request Quote</Link>
+              </Button>
             </div>
 
             {/* Stats / Trust */}

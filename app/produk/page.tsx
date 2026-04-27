@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import {
   Select,
   SelectContent,
@@ -7,117 +8,50 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { ArrowRight, Search } from 'lucide-react'
+import { ArrowRight, Search, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import PageHero from '../components/PageHero'
+import { useGetProductsQuery } from '@/lib/services/pietraApi'
 
-const products = [
-  {
-    slug: 'marmer-carrara-premium',
-    title: 'Carrara White Premium',
-    category: 'Marble',
-    description: 'High-quality white marble from Italy with elegant grey veins.',
-    image:
-      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800',
-    badge: 'Best Seller',
-  },
-  {
-    slug: 'marmer-calacatta-gold',
-    title: 'Calacatta Gold',
-    category: 'Marble',
-    description: 'Exclusive marble with soft gold veins for luxury interiors.',
-    image:
-      'https://images.unsplash.com/photo-1584403293325-756fc1786516?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    badge: 'Premium',
-  },
-  {
-    slug: 'granit-black-galaxy',
-    title: 'Black Galaxy Granite',
-    category: 'Natural Stone',
-    description: 'Black granite with sparkling crystal specks, scratch and heat resistant.',
-    image:
-      'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&q=80&w=800',
-    badge: 'Export Quality',
-  },
-  {
-    slug: 'travertine-ivory-classic',
-    title: 'Travertine Ivory Classic',
-    category: 'Natural Stone',
-    description: 'Ivory colored travertine with soft texture for walls and floors.',
-    image:
-      'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800',
-    badge: null,
-  },
-  {
-    slug: 'kopi-arabika-gayo',
-    title: 'Gayo Arabica Coffee',
-    category: 'Plantation',
-    description: 'Premium arabica coffee from Gayo highlands with floral aroma.',
-    image:
-      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800',
-    badge: 'Export Quality',
-  },
-  {
-    slug: 'teh-hijau-premium',
-    title: 'Premium Green Tea',
-    category: 'Plantation',
-    description: 'Selected green tea leaves with fresh taste and distinct aroma.',
-    image:
-      'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&q=80&w=800',
-    badge: null,
-  },
-  {
-    slug: 'beras-organik-prima',
-    title: 'Prima Organic Rice',
-    category: 'Food Crops',
-    description: 'Best quality organic rice for industrial and retail needs.',
-    image:
-      'https://images.unsplash.com/photo-1504309250229-4f08315f3b5c?auto=format&fit=crop&q=80&w=800',
-    badge: 'Best Seller',
-  },
-  {
-    slug: 'jagung-manis-segar',
-    title: 'Fresh Sweet Corn',
-    category: 'Food Crops',
-    description: 'Fresh sweet corn from best harvest with premium quality.',
-    image:
-      'https://images.unsplash.com/photo-1447175008436-054170c2e979?auto=format&fit=crop&q=80&w=800',
-    badge: null,
-  },
-  {
-    slug: 'madu-hutan-liar',
-    title: 'Wild Forest Honey',
-    category: 'Other Resources',
-    description: 'Pure wild honey harvested sustainably from deep forests.',
-    image:
-      'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&q=80&w=800',
-    badge: 'Organic',
-  },
-  {
-    slug: 'susu-sapi-segar',
-    title: 'Fresh Cow Milk',
-    category: 'Livestock',
-    description: 'Fresh cow milk processed with high hygiene standards.',
-    image:
-      'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&q=80&w=800',
-    badge: null,
-  },
-]
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL?.replace('/api', '') || 'http://127.0.0.1:1337'
+
+function getImageUrl(url?: string) {
+  if (!url) return 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200'
+  if (url.startsWith('http')) return url
+  return `${STRAPI_URL}${url}`
+}
 
 export default function ProdukPage() {
+  const { data: response, isLoading, isError } = useGetProductsQuery()
+  const strapiProducts = response?.data || []
+
   const [selectedCategory, setSelectedCategory] = useState('All Categories')
   const [sortBy, setSortBy] = useState('Latest')
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const ITEMS_PER_PAGE = 8
 
-  // Reset page when filters change
-  const handleFilterChange = () => {
-    setCurrentPage(1)
-  }
+  // Map Strapi products to our UI format
+  const products = strapiProducts.map(p => {
+    // Extract description text from Strapi rich text blocks
+    let descText = ''
+    if (Array.isArray(p.description)) {
+      descText = p.description[0]?.children?.[0]?.text || ''
+    }
+
+    return {
+      slug: p.documentId,
+      title: p.name_product || 'Unnamed Product',
+      category: p.pietra_product_category?.name_category || 'Natural Stone',
+      description: descText,
+      image: getImageUrl(p.thumbnail?.url || p.images?.[0]?.url),
+      badge: null, // Strapi data might not have badge yet
+      rawDate: p.createdAt
+    }
+  })
 
   const filteredProducts = products
     .filter(product => {
@@ -132,10 +66,10 @@ export default function ProdukPage() {
       if (sortBy === 'Name A-Z') {
         return a.title.localeCompare(b.title)
       } else if (sortBy === 'Popularity') {
-        // Simple mock sort: items with badges come first
         return (b.badge ? 1 : 0) - (a.badge ? 1 : 0)
       }
-      return 0 // Latest (default order)
+      // Latest
+      return new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime()
     })
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)
@@ -149,7 +83,6 @@ export default function ProdukPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  // Effect to reset page when filters change
   useEffect(() => {
     setCurrentPage(1)
   }, [selectedCategory, sortBy, searchQuery])
@@ -170,17 +103,16 @@ export default function ProdukPage() {
           {/* Filter Section */}
           <div className="bg-white rounded-lg p-6 mb-12 shadow-sm -mt-24 relative z-20 border border-stone-100">
             <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
                 <Select
                   value={selectedCategory}
                   onValueChange={value => setSelectedCategory(value)}
                 >
-                  <SelectTrigger className="w-[180px] bg-white border-stone-200 focus:ring-brand-gold">
+                  <SelectTrigger className="w-full lg:w-[180px] bg-white border-stone-200 focus:ring-brand-gold">
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="All Categories">All Categories</SelectItem>
-                    <SelectItem value="Marble">Marble</SelectItem>
                     <SelectItem value="Natural Stone">Natural Stone</SelectItem>
                     <SelectItem value="Food Crops">Food Crops</SelectItem>
                     <SelectItem value="Plantation">Plantation</SelectItem>
@@ -190,7 +122,7 @@ export default function ProdukPage() {
                 </Select>
 
                 <Select value={sortBy} onValueChange={value => setSortBy(value)}>
-                  <SelectTrigger className="w-[180px] bg-white border-stone-200 focus:ring-brand-gold">
+                  <SelectTrigger className="w-full lg:w-[180px] bg-white border-stone-200 focus:ring-brand-gold">
                     <SelectValue placeholder="Sort By" />
                   </SelectTrigger>
                   <SelectContent>
@@ -201,13 +133,13 @@ export default function ProdukPage() {
                 </Select>
               </div>
 
-              <div className="relative">
+              <div className="relative w-full lg:w-auto">
                 <input
                   type="text"
                   placeholder="Search products..."
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-gold w-64 bg-white transition-all focus:w-80"
+                  className="pl-10 pr-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-gold w-full lg:w-64 bg-white transition-all lg:focus:w-80"
                 />
                 <div className="absolute left-3 top-2.5 text-stone-400">
                   <Search className="w-5 h-5" />
@@ -217,7 +149,15 @@ export default function ProdukPage() {
           </div>
 
           {/* Product Grid */}
-          {paginatedProducts.length > 0 ? (
+          {isLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <Loader2 className="w-10 h-10 animate-spin text-brand-gold" />
+            </div>
+          ) : isError ? (
+            <div className="text-center py-20">
+              <p className="text-red-500 text-lg">Failed to load products. Please try again later.</p>
+            </div>
+          ) : paginatedProducts.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {paginatedProducts.map(product => (
                 <Link
@@ -282,35 +222,41 @@ export default function ProdukPage() {
           {totalPages > 1 && (
             <div className="flex justify-center mt-16">
               <div className="flex space-x-2">
-                <button
+                <Button
+                  variant="outline"
+                  size="icon"
                   onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="w-10 h-10 flex items-center justify-center border border-stone-200 rounded-lg hover:bg-stone-100 transition-colors text-stone-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-10 h-10 border border-stone-200 rounded-lg hover:bg-stone-100 transition-colors text-stone-600 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   ←
-                </button>
+                </Button>
 
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                  <button
+                  <Button
                     key={page}
+                    variant={currentPage === page ? 'blue' : 'outline'}
+                    size="icon"
                     onClick={() => handlePageChange(page)}
-                    className={`w-10 h-10 flex items-center justify-center rounded-lg font-bold transition-colors ${
+                    className={`w-10 h-10 rounded-lg font-bold transition-colors ${
                       currentPage === page
-                        ? 'bg-brand-dark text-white shadow-lg shadow-brand-dark/20'
+                        ? 'shadow-lg shadow-brand-dark/20'
                         : 'border border-stone-200 text-stone-600 hover:bg-stone-100'
                     }`}
                   >
                     {page}
-                  </button>
+                  </Button>
                 ))}
 
-                <button
+                <Button
+                  variant="outline"
+                  size="icon"
                   onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
-                  className="w-10 h-10 flex items-center justify-center border border-stone-200 rounded-lg hover:bg-stone-100 transition-colors text-stone-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-10 h-10 border border-stone-200 rounded-lg hover:bg-stone-100 transition-colors text-stone-600 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   →
-                </button>
+                </Button>
               </div>
             </div>
           )}

@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
+import StoreProvider from './StoreProvider'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
@@ -36,7 +37,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   )
 }
